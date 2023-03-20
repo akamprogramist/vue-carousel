@@ -11,23 +11,31 @@
     </div>
   </div>
 </template>
-<script setup>
-import { ref } from "vue";
-import { onMounted } from "vue";
+<script>
 import CarouselItem from "./CarouselItem.vue";
-const props = defineProps(["slides"]);
-const currentSlide = ref(0);
-const slideInterval = ref(null);
-onMounted(()=>{
-    this.slideInterval = setInterval(()=>{
-        const index = this.currentSlide < this.slides.length -1 ? this.currentSlide +1 :0;
-        this.currentSlide=index;
-    },3000)
-
-}),
-beforeUnmount(()=> {
+export default {
+  props: ["slides"],
+  components: { CarouselItem },
+  data: () => ({
+    currentSlide: 0,
+    slideInterval: null,
+  }),
+  methods: {
+    setCurrentSlide(index) {
+      this.currentSlide = index;
+    },
+  },
+  mounted() {
+    this.slideInterval = setInterval(() => {
+      const index =
+        this.currentSlide < this.slides.length - 1 ? this.currentSlide + 1 : 0;
+      this.setCurrentSlide(index);
+    }, 3000);
+  },
+  beforeUnmount() {
     clearInterval(this.slideInterval);
-}),
+  },
+};
 </script>
 
 <style scoped>
