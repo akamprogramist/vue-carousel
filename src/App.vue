@@ -1,5 +1,5 @@
 <template>
-  <Carousel :slides="slides"></Carousel>
+  <Carousel :slides="slides" :interval="3000" controls indicators></Carousel>
 </template>
 
 <script setup>
